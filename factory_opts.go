@@ -10,6 +10,7 @@ type ClientOption func(*Client)
 
 func WithAPIEndpoint(api APIEndpoint) ClientOption {
 	return func(c *Client) {
+		c.transport.BaseURL = string(api)
 		c.transport = transport.NewClient(string(api), nil)
 	}
 }
