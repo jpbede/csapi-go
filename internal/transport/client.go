@@ -93,7 +93,9 @@ func (c *Client) doRequest(ctx context.Context, method string, path string, out 
 	}
 
 	// add auth cookie
-	req.AddCookie(c.authCookie)
+	if c.authCookie != nil {
+		req.AddCookie(c.authCookie)
+	}
 
 	// run options
 	for i := range opts {
