@@ -26,3 +26,11 @@ func WithLogger(logger *zerolog.Logger) ClientOption {
 		c.transport.SetLogger(logger)
 	}
 }
+
+// WithCredentials supplies the api credentials
+func WithCredentials(apiName, apiKey string) ClientOption {
+	return func(c *Client) {
+		c.transport.APIName = apiName
+		c.transport.APIKey = apiKey
+	}
+}

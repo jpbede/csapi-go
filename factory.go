@@ -1,6 +1,8 @@
 package csapi
 
 import (
+	"context"
+	"errors"
 	"github.com/jpbede/csapi-go/internal/transport"
 	"net/http"
 )
@@ -13,17 +15,17 @@ const (
 )
 
 // New creates a new Client with APIUrl and APIKey
-func New() *Client {
-	return NewWithOptions(WithAPIEndpoint(APIEndpointProduction))
+func New(apiName, apiKey string) (*Client, error) {
+	return NewWithOptions(WithAPIEndpoint(APIEndpointProduction), WithCredentials(apiName, apiKey))
 }
 
 // NewWithClient creates a new Client with a given http.Client
-func NewWithClient(httpClient *http.Client) *Client {
-	return NewWithOptions(WithAPIEndpoint(APIEndpointProduction), WithHTTPClient(httpClient))
+func NewWithClient(httpClient *http.Client, apiName, apiKey string) (*Client, error) {
+	return NewWithOptions(WithAPIEndpoint(APIEndpointProduction), WithHTTPClient(httpClient), WithCredentials(apiName, apiKey))
 }
 
 // New creates a new Client with given options
-func NewWithOptions(options ...ClientOption) *Client {
+func NewWithOptions(options ...ClientOption) (*Client, error) {
 	c := &Client{}
 
 	// always create a base transport it can be overwritten with options
@@ -34,5 +36,13 @@ func NewWithOptions(options ...ClientOption) *Client {
 		option(c)
 	}
 
-	return c
+	// check if there are credentials and then login
+	if !c.transport.HasCredentials() {
+		return nil, errors.New("no api credentials supplied")
+	}
+	if err := c.transport.Login(context.Background()); err != nil {
+		return nil, err
+	}
+
+	return c, nil
 }

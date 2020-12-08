@@ -3,6 +3,7 @@ package transport
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"github.com/rs/zerolog"
 	"io"
 	"net/http"
@@ -12,6 +13,8 @@ import (
 // Client is the http transport client for netpalm. It handles the authentication
 type Client struct {
 	BaseURL string
+	APIName string
+	APIKey  string
 
 	httpClient *http.Client
 	logger     *zerolog.Logger
@@ -57,13 +60,13 @@ func (c *Client) Delete(ctx context.Context, path string, out interface{}, opts 
 }
 
 // Login executes the login process and sets the gotten token
-func (c *Client) Login(ctx context.Context, apiName, apiKey string) error {
+func (c *Client) Login(ctx context.Context) error {
 	req, err := http.NewRequest(http.MethodPost, c.BaseURL+"/login", nil)
 	if err != nil {
 		return err
 	}
 
-	jsonReq := WithJSONRequestBody(APICreds{Name: apiName, Key: apiKey})
+	jsonReq := WithJSONRequestBody(APICreds{Name: c.APIName, Key: c.APIKey})
 	jsonReq(req)
 
 	req = req.WithContext(ctx)
@@ -77,6 +80,8 @@ func (c *Client) Login(ctx context.Context, apiName, apiKey string) error {
 	for _, cookie := range res.Cookies() {
 		if cookie.Name == "CSApiAuth" {
 			c.authCookie = cookie
+		} else {
+			return errors.New("error while login. cookie 'CSApiAuth' not found.")
 		}
 	}
 
@@ -92,6 +97,11 @@ func (c *Client) doRequest(ctx context.Context, method string, path string, out 
 		return err
 	}
 
+	// add client logger if zerolog logger is there
+	if c.logger != nil {
+		c.httpClient.Transport = &ClientLogging{Logger: c.logger}
+	}
+
 	// add auth cookie
 	if c.authCookie != nil {
 		req.AddCookie(c.authCookie)
@@ -104,11 +114,6 @@ func (c *Client) doRequest(ctx context.Context, method string, path string, out 
 		}
 	}
 	req = req.WithContext(ctx)
-
-	// add client logger if zerolog logger is there
-	if c.logger != nil {
-		c.httpClient.Transport = &ClientLogging{Logger: c.logger}
-	}
 
 	// run request
 	res, err := c.httpClient.Do(req)
@@ -134,4 +139,8 @@ func (c *Client) doRequest(ctx context.Context, method string, path string, out 
 // SetLogger sets a zerolog logger for request and response logging
 func (c *Client) SetLogger(logger *zerolog.Logger) {
 	c.logger = logger
+}
+
+func (c *Client) HasCredentials() bool {
+	return c.APIName != "" && c.APIKey != ""
 }
