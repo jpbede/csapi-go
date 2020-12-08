@@ -8,7 +8,8 @@ import (
 type APIEndpoint string
 
 const (
-	APIEndpointProduction APIEndpoint = "https://mon1-ecocsa.ilk.net/api/v1"
+	APIEndpointProduction APIEndpoint = "https://monitor.certified-senders.org/api/v1"
+	APIEndpointBeta       APIEndpoint = "https://monitor-beta.certified-senders.org/api/v1"
 )
 
 // New creates a new Client with APIUrl and APIKey
