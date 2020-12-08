@@ -3,3 +3,18 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/e937f5341cc046b593cf44eb1f891087)](https://www.codacy.com/gh/jpbede/csapi-go/dashboard)
 
 Go client package for the CSApi (API for certified-senders.org)
+
+## Usage
+
+Import the lib as usual
+```go
+import "github.com/jpbede/csapi-go"
+```
+
+Then create a new client. The login will be handled automatically. You will get a authenticated client.
+```go
+api, err := csapi.NewWithOptions(csapi.WithCredentials("abc12", "abc-123"))
+if err != nil {
+    return err
+}
+```

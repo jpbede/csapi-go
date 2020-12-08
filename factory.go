@@ -24,7 +24,7 @@ func NewWithClient(httpClient *http.Client, apiName, apiKey string) (*Client, er
 	return NewWithOptions(WithAPIEndpoint(APIEndpointProduction), WithHTTPClient(httpClient), WithCredentials(apiName, apiKey))
 }
 
-// New creates a new Client with given options
+// NewWithOptions creates a new Client with given options
 func NewWithOptions(options ...ClientOption) (*Client, error) {
 	c := &Client{}
 

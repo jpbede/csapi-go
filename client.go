@@ -5,6 +5,7 @@ import (
 	"github.com/jpbede/csapi-go/internal/transport"
 )
 
+// Client represents the main client
 type Client struct {
 	transport *transport.Client
 
