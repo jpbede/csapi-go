@@ -11,6 +11,7 @@ type ClientLogging struct {
 	Logger *zerolog.Logger
 }
 
+// RoundTrip executes a single HTTP transaction, returning a Response for the provided Request.
 func (cl *ClientLogging) RoundTrip(r *http.Request) (*http.Response, error) {
 	start := time.Now()
 	res, err := http.DefaultTransport.RoundTrip(r)
