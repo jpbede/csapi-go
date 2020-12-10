@@ -7,11 +7,14 @@ import (
 	"net/http"
 )
 
+// APIEndpoint represents a api endpoint
 type APIEndpoint string
 
 const (
+	// APIEndpointProduction Production API endpoint
 	APIEndpointProduction APIEndpoint = "https://monitor.certified-senders.org/api/v1"
-	APIEndpointBeta       APIEndpoint = "https://monitor-beta.certified-senders.org/api/v1"
+	// APIEndpointBeta Beta API endpoint
+	APIEndpointBeta APIEndpoint = "https://monitor-beta.certified-senders.org/api/v1"
 )
 
 // New creates a new Client with APIUrl and APIKey

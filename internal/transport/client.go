@@ -81,7 +81,7 @@ func (c *Client) Login(ctx context.Context) error {
 		if cookie.Name == "CSApiAuth" {
 			c.authCookie = cookie
 		} else {
-			return errors.New("error while login. cookie 'CSApiAuth' not found.")
+			return errors.New("error while login. cookie 'CSApiAuth' not found")
 		}
 	}
 
@@ -141,6 +141,7 @@ func (c *Client) SetLogger(logger *zerolog.Logger) {
 	c.logger = logger
 }
 
+// HasCredentials checks if the transport client has credentials
 func (c *Client) HasCredentials() bool {
 	return c.APIName != "" && c.APIKey != ""
 }
