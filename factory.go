@@ -1,7 +1,6 @@
 package csapi
 
 import (
-	"context"
 	"errors"
 	"github.com/jpbede/csapi-go/internal/transport"
 	"net/http"
@@ -42,9 +41,6 @@ func NewWithOptions(options ...ClientOption) (*Client, error) {
 	// check if there are credentials and then login
 	if !c.transport.HasCredentials() {
 		return nil, errors.New("no api credentials supplied")
-	}
-	if err := c.transport.Login(context.Background()); err != nil {
-		return nil, err
 	}
 
 	return c, nil

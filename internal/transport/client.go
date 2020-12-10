@@ -105,6 +105,13 @@ func (c *Client) doRequest(ctx context.Context, method string, path string, out 
 	// add auth cookie
 	if c.authCookie != nil {
 		req.AddCookie(c.authCookie)
+	} else {
+		if err := c.Login(context.Background()); err != nil {
+			return err
+		}
+		if c.authCookie != nil {
+			req.AddCookie(c.authCookie)
+		}
 	}
 
 	// run options
