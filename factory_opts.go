@@ -1,8 +1,8 @@
 package csapi
 
 import (
-	"github.com/jpbede/csapi-go/internal/transport"
 	"github.com/rs/zerolog"
+	"go.bnck.me/csapi/internal/transport"
 	"net/http"
 )
 

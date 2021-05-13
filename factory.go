@@ -2,7 +2,7 @@ package csapi
 
 import (
 	"errors"
-	"github.com/jpbede/csapi-go/internal/transport"
+	"go.bnck.me/csapi/internal/transport"
 	"net/http"
 )
 

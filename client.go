@@ -1,8 +1,8 @@
-package csapi
+package csapi // import "go.bnck.me/csapi"
 
 import (
-	"github.com/jpbede/csapi-go/apis/stat"
-	"github.com/jpbede/csapi-go/internal/transport"
+	"go.bnck.me/csapi/apis/stat"
+	"go.bnck.me/csapi/internal/transport"
 )
 
 // Client represents the main client

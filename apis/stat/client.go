@@ -1,7 +1,7 @@
 package stat
 
 import (
-	"github.com/jpbede/csapi-go/internal/transport"
+	"go.bnck.me/csapi/internal/transport"
 )
 
 type client struct {

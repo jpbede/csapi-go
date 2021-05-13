@@ -1,8 +1,8 @@
 package csapi_test
 
 import (
-	"github.com/jpbede/csapi-go"
 	"github.com/stretchr/testify/assert"
+	"go.bnck.me/csapi"
 	"net/http"
 	"testing"
 )

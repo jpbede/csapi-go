@@ -1,4 +1,4 @@
-module github.com/jpbede/csapi-go
+module go.bnck.me/csapi
 
 go 1.15
 
