@@ -36,6 +36,18 @@ func (c *client) SpamclickRateByIPs(ctx context.Context, date string) (map[strin
 	return spamclick, nil
 }
 
+func (c *client) SpamclickRateComplianceStatusByIP(ctx context.Context, date, cidr string) (string, error) {
+	var status string
+
+	err := c.transport.Get(ctx, "/stat/spamclickrate/compliance_status", &status,
+		transport.WithQueryValue("date", date), transport.WithQueryValue("cidr", cidr))
+	if err != nil {
+		return "", err
+	}
+
+	return status, nil
+}
+
 func (c *client) spamClickrateWithScope(ctx context.Context, scope Scope, date string, out interface{}) error {
 	if valErr := validation.ValidateDate(date); valErr != nil {
 		return valErr

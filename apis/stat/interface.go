@@ -12,6 +12,7 @@ type Client interface {
 	GlobalSpamclickRate(ctx context.Context, date string) (*SpamclickRate, error)
 	SpamclickRateByDKIMDomains(ctx context.Context, date string) (map[string]*SpamclickRate, error)
 	SpamclickRateByIPs(ctx context.Context, date string) (map[string]*SpamclickRate, error)
+	SpamclickRateComplianceStatusByIP(ctx context.Context, date, ip string) (string, error)
 
 	// Spamtrap endpoints
 	GlobalSpamtrapHits(ctx context.Context, date string) (int, error)
@@ -19,8 +20,9 @@ type Client interface {
 	SpamtrapHitsByIPs(ctx context.Context, date string) (map[string]int, error)
 
 	// DKIM errors endpoints
-	GlobalDKIMErrors(ctx context.Context, date string) (*GlobalDKIMError, error)
-	DKIMErrorsByIPs(ctx context.Context, date string) (map[string]float64, error)
+	GlobalDKIMErrors(ctx context.Context, date string) (*DKIMError, error)
+	DKIMErrorsByDKIMDomains(ctx context.Context, date string) (map[string]*DKIMError, error)
+	DKIMErrorsByIPs(ctx context.Context, date string) (map[string]*DKIMError, error)
 
 	// ip report endpoint
 	IPReport(ctx context.Context, date string) (map[string]*IPReport, error)

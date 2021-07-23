@@ -6,8 +6,8 @@ import (
 	"go.bnck.me/csapi/internal/validation"
 )
 
-func (c *client) GlobalDKIMErrors(ctx context.Context, date string) (*GlobalDKIMError, error) {
-	var globalDkimErrors GlobalDKIMError
+func (c *client) GlobalDKIMErrors(ctx context.Context, date string) (*DKIMError, error) {
+	var globalDkimErrors DKIMError
 
 	if err := c.dkimErrorsScoped(ctx, date, ScopeGlobal, &globalDkimErrors); err != nil {
 		return nil, err
@@ -16,14 +16,24 @@ func (c *client) GlobalDKIMErrors(ctx context.Context, date string) (*GlobalDKIM
 	return &globalDkimErrors, nil
 }
 
-func (c *client) DKIMErrorsByIPs(ctx context.Context, date string) (map[string]float64, error) {
-	var dkimerrors map[string]float64
+func (c *client) DKIMErrorsByIPs(ctx context.Context, date string) (map[string]*DKIMError, error) {
+	var dkimErrors map[string]*DKIMError
 
-	if err := c.dkimErrorsScoped(ctx, date, ScopeIP, &dkimerrors); err != nil {
+	if err := c.dkimErrorsScoped(ctx, date, ScopeIP, &dkimErrors); err != nil {
 		return nil, err
 	}
 
-	return dkimerrors, nil
+	return dkimErrors, nil
+}
+
+func (c *client) DKIMErrorsByDKIMDomains(ctx context.Context, date string) (map[string]*DKIMError, error) {
+	var dkimErrors map[string]*DKIMError
+
+	if err := c.dkimErrorsScoped(ctx, date, ScopeDKIMDomains, &dkimErrors); err != nil {
+		return nil, err
+	}
+
+	return dkimErrors, nil
 }
 
 func (c *client) dkimErrorsScoped(ctx context.Context, date string, scope Scope, out interface{}) error {
