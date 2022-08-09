@@ -10,7 +10,7 @@ Go client package for the CSApi (API for certified-senders.org)
 
 Import the lib as usual
 ```go
-import "go.bnck.me/csapi"
+import "go.bnck.me/csapi/v2"
 ```
 
 Then create a new client. The login will be handled automatically. You will get a authenticated client.
