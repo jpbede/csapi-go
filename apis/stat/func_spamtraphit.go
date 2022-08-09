@@ -2,8 +2,8 @@ package stat
 
 import (
 	"context"
-	"go.bnck.me/csapi/internal/transport"
-	"go.bnck.me/csapi/internal/validation"
+	"go.bnck.me/csapi/v2/internal/transport"
+	"go.bnck.me/csapi/v2/internal/validation"
 )
 
 func (c *client) GlobalSpamtrapHits(ctx context.Context, date string) (int, error) {

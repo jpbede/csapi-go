@@ -2,7 +2,7 @@ package csapi
 
 import (
 	"github.com/rs/zerolog"
-	"go.bnck.me/csapi/internal/transport"
+	"go.bnck.me/csapi/v2/internal/transport"
 	"net/http"
 )
 

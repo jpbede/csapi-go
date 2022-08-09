@@ -1,4 +1,4 @@
-module go.bnck.me/csapi
+module go.bnck.me/csapi/v2
 
 go 1.15
 

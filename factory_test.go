@@ -2,7 +2,7 @@ package csapi_test
 
 import (
 	"github.com/stretchr/testify/assert"
-	"go.bnck.me/csapi"
+	"go.bnck.me/csapi/v2"
 	"net/http"
 	"testing"
 )
