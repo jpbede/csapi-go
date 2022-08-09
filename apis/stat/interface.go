@@ -8,7 +8,7 @@ import (
 type Client interface {
 	LatestDateWithData(ctx context.Context) (string, error)
 
-	// Spamclickrate endpoints
+	// GlobalSpamclickRate Spamclickrate endpoints
 	GlobalSpamclickRate(ctx context.Context, date string) (*SpamclickRate, error)
 	SpamclickRateByDKIMDomains(ctx context.Context, date string) (map[string]*SpamclickRate, error)
 	SpamclickRateByIPs(ctx context.Context, date string) (map[string]*SpamclickRate, error)
@@ -26,4 +26,5 @@ type Client interface {
 
 	// ip report endpoint
 	IPReport(ctx context.Context, date string) (map[string]*IPReport, error)
+	IPCounts(ctx context.Context, date string) (map[string]int, error)
 }

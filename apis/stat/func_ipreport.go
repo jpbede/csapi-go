@@ -25,3 +25,23 @@ func (c *client) IPReport(ctx context.Context, date string) (map[string]*IPRepor
 
 	return ipreports, nil
 }
+
+func (c *client) IPCounts(ctx context.Context, date string) (map[string]int, error) {
+	if valErr := validation.ValidateDate(date); valErr != nil {
+		return nil, valErr
+	}
+
+	var ipcounts map[string]int
+	var err error
+
+	if date != "" {
+		err = c.transport.Get(ctx, "/stat/ipcounts", &ipcounts, transport.WithQueryValue("date", date))
+	} else {
+		err = c.transport.Get(ctx, "/stat/ipcounts", &ipcounts)
+	}
+	if err != nil {
+		return nil, err
+	}
+
+	return ipcounts, nil
+}

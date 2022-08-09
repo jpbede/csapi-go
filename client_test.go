@@ -7,7 +7,7 @@ import (
 )
 
 func TestClient_Stat(t *testing.T) {
-	c, err := csapi.New("abc", "abc-123")
+	c, err := csapi.New("abc-123")
 	assert.NoError(t, err)
 
 	statAPI := c.Stat()

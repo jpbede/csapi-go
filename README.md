@@ -15,7 +15,7 @@ import "go.bnck.me/csapi"
 
 Then create a new client. The login will be handled automatically. You will get a authenticated client.
 ```go
-api, err := csapi.NewWithOptions(csapi.WithCredentials("abc12", "abc-123"))
+api, err := csapi.NewWithOptions(csapi.WithAPIKey("abc-123"))
 if err != nil {
     return err
 }
